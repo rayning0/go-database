@@ -4,6 +4,8 @@ To run, type `go run main.go`
 
 Type each command in command line. Hit ENTER after each. Commands are case-insensitive.
 
+See **[sample screen output](https://github.com/rayning0/go-database/blob/master/output.txt)**.
+
 ## Commands:
 
 `SET [name] [value]`
