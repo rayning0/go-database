@@ -1,5 +1,5 @@
-OUTPUT, including all print statements:
-_______________________________________
+OUTPUT, including all print statements for debugging:
+____________________________________________________
 EXAMPLE #1:
 
 » go run main.go
