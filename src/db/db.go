@@ -3,6 +3,7 @@ package db
 import (
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -10,7 +11,6 @@ func get(words []string, m1 map[string]string) (string, error) {
 	if len(words) != 2 {
 		return "", errors.New("Invalid GET command. Format: GET [name]")
 	}
-
 	name := words[1]
 	value, ok := m1[name]
 
@@ -42,12 +42,14 @@ func set(words []string, m1 map[string]string, m2 map[string][]string) (string, 
 	}
 }
 
-// func delete(words []string, m1 map[string]string, m2 map[string][]string) (string, error) {
-// 	if len(words) != 2 {
-// 		return "", errors.New("Invalid DELETE command. Format: DELETE [name]")
-// 	}
+func count(words []string, m2 map[string][]string) (string, error) {
+	if len(words) != 2 {
+		return "", errors.New("Invalid COUNT command. Format: COUNT [value]")
+	}
+	value := words[1]
 
-// }
+	return strconv.Itoa(len(m2[value])), nil
+}
 
 func Eval(line string, m1 map[string]string, m2 map[string][]string) (string, error) {
 	words := strings.Split(line, " ")
@@ -62,8 +64,8 @@ func Eval(line string, m1 map[string]string, m2 map[string][]string) (string, er
 		return get(words, m1)
 	case "set":
 		return set(words, m1, m2)
-	// case "delete":
-	// 	return delete(words, m1, m2)
+	case "count":
+		return count(words, m2)
 	default:
 		return line, errors.New("Invalid command. Type '?' for list of commands.")
 	}

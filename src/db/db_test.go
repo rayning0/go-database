@@ -26,7 +26,8 @@ func TestEval(t *testing.T) {
 		{"SET b foo", "foo", nil},
 		{"GET a", "foo", nil},
 		{"GET b", "foo", nil},
-		// {"DELETE a", "2", nil}
+		{"COUNT foo", "2", nil},
+		{"COUNT bar", "0", nil},
 	}
 	for _, test := range tests {
 		output, err := Eval(test.line, m1, m2)
