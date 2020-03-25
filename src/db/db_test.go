@@ -20,6 +20,11 @@ func TestEval(t *testing.T) {
 		{"blah", "blah", errors.New("Invalid command. Type '?' for list of commands.")},
 		{"GET a b", "", errors.New("Invalid GET command. Format: GET [name]")},
 		{"GET a", "NULL", nil},
+		{"SET a", "", errors.New("Invalid SET command. Format: SET [name] [value]")},
+		{"SET a foo", "foo", nil},
+		{"SET b foo", "foo", nil},
+		{"GET a", "foo", nil},
+		{"GET b", "fool", nil},
 	}
 	for _, test := range tests {
 		output, err := Eval(test.line, m)

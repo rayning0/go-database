@@ -2,6 +2,7 @@ package db
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -11,11 +12,29 @@ func get(words []string, m map[string]string) (string, error) {
 	}
 
 	name := words[1]
+	value, ok := m[name]
 
-	if m[name] == "" {
+	if !ok {
 		return "NULL", nil
 	} else {
-		return m[name], nil
+		return value, nil
+	}
+}
+
+func set(words []string, m map[string]string) (string, error) {
+	if len(words) != 3 {
+		return "", errors.New("Invalid SET command. Format: SET [name] [value]")
+	}
+	name, value := words[1], words[2]
+
+	m[name] = value
+	value, ok := m[name]
+	fmt.Println("m: ", m)
+
+	if !ok {
+		return "", errors.New("Error in setting " + name)
+	} else {
+		return value, nil
 	}
 }
 
@@ -30,6 +49,8 @@ func Eval(line string, m map[string]string) (string, error) {
 		return "HELP", nil
 	case "get":
 		return get(words, m)
+	case "set":
+		return set(words, m)
 	default:
 		return line, errors.New("Invalid command. Type '?' for list of commands.")
 	}
