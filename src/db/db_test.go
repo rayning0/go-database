@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEval(t *testing.T) {
+func TestExample1(t *testing.T) {
 	m1 := make(map[string]string)
 	m2 := make(map[string][]string)
 
@@ -22,12 +22,47 @@ func TestEval(t *testing.T) {
 		{"GET a b", "", errors.New("Invalid GET command. Format: GET [name]")},
 		{"GET a", "NULL", nil},
 		{"SET a", "", errors.New("Invalid SET command. Format: SET [name] [value]")},
-		{"SET a foo", "foo", nil},
-		{"SET b foo", "foo", nil},
+		{"SET a foo", "", nil},
+		{"SET b foo", "", nil},
+		{"SET c foo", "", nil},
 		{"GET a", "foo", nil},
 		{"GET b", "foo", nil},
-		{"COUNT foo", "2", nil},
+		{"COUNT foo", "3", nil},
 		{"COUNT bar", "0", nil},
+		{"DELETE a", "", nil},
+		{"GET a", "NULL", nil},
+		{"COUNT foo", "2", nil},
+		{"SET b baz", "", nil},
+		{"COUNT foo", "1", nil},
+		{"GET b", "baz", nil},
+		{"GET B", "NULL", nil},
+		{"eNd", "END", nil},
+	}
+	for _, test := range tests {
+		output, err := Eval(test.line, m1, m2)
+
+		assert.Equal(t, test.expected, output)
+		assert.Equal(t, test.err, err)
+	}
+}
+
+func TestExample2(t *testing.T) {
+	m1 := make(map[string]string)
+	m2 := make(map[string][]string)
+
+	tests := []struct {
+		line     string
+		expected string
+		err      error
+	}{
+		{"SET a foo", "", nil},
+		{"SET a foo", "", nil},
+		{"COUNT foo", "1", nil},
+		{"GET a", "foo", nil},
+		{"DELETE a", "", nil},
+		{"GET a", "NULL", nil},
+		{"COUNT foo", "0", nil},
+		{"END", "END", nil},
 	}
 	for _, test := range tests {
 		output, err := Eval(test.line, m1, m2)

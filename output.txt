@@ -1,0 +1,73 @@
+OUTPUT, including all print statements:
+_______________________________________
+EXAMPLE #1:
+
+» go run main.go
+>> get a
+NULL
+>> set a foo
+m1:  map[a:foo]
+m2:  map[foo:[a]]
+
+>> set b foo
+m1:  map[a:foo b:foo]
+m2:  map[foo:[a b]]
+
+>> set c foo
+m1:  map[a:foo b:foo c:foo]
+m2:  map[foo:[a b c]]
+
+>> count foo
+3
+>> count bar
+0
+>> delete a
+new m1:  map[b:foo c:foo]
+new m2:  map[foo:[b c]]
+
+>> get a
+NULL
+>> count foo
+2
+>> set b baz
+m1:  map[b:baz c:foo]
+m2[foo] was:  [b c]
+m2[foo] now:  [c]
+m2:  map[baz:[b] foo:[c]]
+
+>> count foo
+1
+>> get b
+baz
+>> get B
+NULL
+>> end
+_______________________________________
+EXAMPLE #2:
+
+>> set a foo
+m1:  map[a:foo]
+m2:  map[foo:[a]]
+
+>> set a foo
+m1:  map[a:foo]
+m2[foo] was:  [a]
+m2[foo] now:  []
+m2:  map[foo:[a]]
+
+>> count foo
+1
+>> get a
+foo
+>> delete a
+new m1:  map[]
+new m2:  map[foo:[]]
+
+>> get a
+NULL
+>> count foo
+0
+>> end
+
+_______________________________________
+EXAMPLE #3:
