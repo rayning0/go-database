@@ -40,7 +40,7 @@ func TestExample1(t *testing.T) {
 		{"eNd", "END", nil},
 	}
 	for _, test := range tests {
-		output, err := Eval(test.line, m1, m2, trans)
+		output, err := Eval(test.line, m1, m2, &trans)
 
 		assert.Equal(t, test.expected, output)
 		assert.Equal(t, test.err, err)
@@ -67,7 +67,7 @@ func TestExample2(t *testing.T) {
 		{"END", "END", nil},
 	}
 	for _, test := range tests {
-		output, err := Eval(test.line, m1, m2, trans)
+		output, err := Eval(test.line, m1, m2, &trans)
 
 		assert.Equal(t, test.expected, output)
 		assert.Equal(t, test.err, err)
@@ -92,17 +92,14 @@ func TestExample3(t *testing.T) {
 		{"SET a bar", "", nil},
 		{"GET a", "bar", nil},
 		{"SET a baz", "", nil},
-		{"BEGIN", "", nil},
-		{"SET b ray", "", nil},
-		{"SET c ray", "", nil},
 		{"ROLLBACK", "", nil},
-		// {"GET a", "foo", nil},
+		{"GET a", "foo", nil},
 		// {"ROLLBACK", "", nil},
 		// {"GET a", "NULL", nil},
 		{"END", "END", nil},
 	}
 	for _, test := range tests {
-		output, err := Eval(test.line, m1, m2, trans)
+		output, err := Eval(test.line, m1, m2, &trans)
 
 		assert.Equal(t, test.expected, output)
 		assert.Equal(t, test.err, err)

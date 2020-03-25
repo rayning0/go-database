@@ -129,7 +129,7 @@ func commit(words []string, m1 M1, m2 M2, trans *Stack) error {
 	return nil
 }
 
-func Eval(line string, m1 M1, m2 M2, trans Stack) (string, error) {
+func Eval(line string, m1 M1, m2 M2, trans *Stack) (string, error) {
 	words := strings.Split(line, " ")
 	command := strings.ToLower(words[0])
 
@@ -147,16 +147,16 @@ func Eval(line string, m1 M1, m2 M2, trans Stack) (string, error) {
 	case "delete":
 		return "", del(words, m1, m2)
 	case "begin":
-		err := begin(words, m1, m2, &trans)
+		err := begin(words, m1, m2, trans)
 		fmt.Println("trans begin: ", trans)
 		return "", err
 	case "rollback":
 		fmt.Println("trans before rollback: ", trans)
-		err := rollback(words, m1, m2, &trans)
+		err := rollback(words, m1, m2, trans)
 		fmt.Println("trans rollback: ", trans)
 		return "", err
 	case "commit":
-		err := commit(words, m1, m2, &trans)
+		err := commit(words, m1, m2, trans)
 		fmt.Println("trans commit: ", trans)
 		return "", err
 	default:

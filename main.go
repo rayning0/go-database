@@ -53,7 +53,7 @@ func main() {
 
 		line := strings.TrimSpace(scanner.Text())
 		fmt.Println("trans outside PRE: ", trans)
-		output, err := db.Eval(line, m1, m2, trans)
+		output, err := db.Eval(line, m1, m2, &trans)
 		fmt.Println("trans outside: ", trans)
 		if output == "END" {
 			os.Exit(0)
