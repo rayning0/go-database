@@ -25,7 +25,9 @@ COMMIT: Commits ​all​ open transactions`
 
 // REPL: Read from input source till we see \n
 func main() {
+	m := make(map[string]string)
 	scanner := bufio.NewScanner(os.Stdin)
+
 	for {
 		fmt.Printf(prompt)
 
@@ -33,18 +35,22 @@ func main() {
 		if !scanned {
 			return
 		}
-		line := strings.TrimSpace(scanner.Text())
 
-		output, err := db.Eval(line)
+		line := strings.TrimSpace(scanner.Text())
+		output, err := db.Eval(line, m)
 
 		if output == "END" {
 			os.Exit(0)
 		}
+
 		if err != nil {
 			fmt.Println(err.Error())
 		}
+
 		if output == "HELP" {
 			fmt.Println(commands)
 		}
+
+		fmt.Println(output)
 	}
 }

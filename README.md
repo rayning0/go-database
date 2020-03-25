@@ -1,4 +1,4 @@
-# Golang in-memory database
+# Golang In-memory Database
 
 To run, type `go run main.go`
 
@@ -20,6 +20,9 @@ Type each command in command line. Hit ENTER after each. Commands are case-insen
 
 `END`
 - Exits database
+
+`?`
+- Prints list of commands
 
 ### The database also supports transactions:
 

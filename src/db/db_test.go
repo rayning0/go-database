@@ -8,6 +8,8 @@ import (
 )
 
 func TestEval(t *testing.T) {
+	m := make(map[string]string)
+
 	tests := []struct {
 		line     string
 		expected string
@@ -15,10 +17,12 @@ func TestEval(t *testing.T) {
 	}{
 		{"EnD", "END", nil},
 		{"?", "HELP", nil},
-		{"blah", "blah", errors.New("Not a command. Type '?' for list of commands.")},
+		{"blah", "blah", errors.New("Invalid command. Type '?' for list of commands.")},
+		{"GET a b", "", errors.New("Invalid GET command. Format: GET [name]")},
+		{"GET a", "NULL", nil},
 	}
 	for _, test := range tests {
-		output, err := Eval(test.line)
+		output, err := Eval(test.line, m)
 
 		assert.Equal(t, test.expected, output)
 		assert.Equal(t, test.err, err)
