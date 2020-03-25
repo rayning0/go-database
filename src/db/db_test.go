@@ -8,7 +8,8 @@ import (
 )
 
 func TestEval(t *testing.T) {
-	m := make(map[string]string)
+	m1 := make(map[string]string)
+	m2 := make(map[string][]string)
 
 	tests := []struct {
 		line     string
@@ -24,10 +25,11 @@ func TestEval(t *testing.T) {
 		{"SET a foo", "foo", nil},
 		{"SET b foo", "foo", nil},
 		{"GET a", "foo", nil},
-		{"GET b", "fool", nil},
+		{"GET b", "foo", nil},
+		// {"DELETE a", "2", nil}
 	}
 	for _, test := range tests {
-		output, err := Eval(test.line, m)
+		output, err := Eval(test.line, m1, m2)
 
 		assert.Equal(t, test.expected, output)
 		assert.Equal(t, test.err, err)

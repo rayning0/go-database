@@ -25,7 +25,12 @@ COMMIT: Commits ​all​ open transactions`
 
 // REPL: Read from input source till we see \n
 func main() {
-	m := make(map[string]string)
+	m1 := make(map[string]string) // Main database map, name to value. Ex: {"a": "foo", "b": "foo"}
+
+	// Reverse of m1, mapping value to names. For SET and DELETE.
+	// Ex: {"foo": [a, b]}
+	m2 := make(map[string][]string)
+
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
@@ -37,7 +42,7 @@ func main() {
 		}
 
 		line := strings.TrimSpace(scanner.Text())
-		output, err := db.Eval(line, m)
+		output, err := db.Eval(line, m1, m2)
 
 		if output == "END" {
 			os.Exit(0)
