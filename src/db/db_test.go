@@ -105,3 +105,40 @@ func TestExample3(t *testing.T) {
 		assert.Equal(t, test.err, err)
 	}
 }
+
+func TestExample4(t *testing.T) {
+	m1 := make(M1)
+	m2 := make(M2)
+	var trans Stack
+
+	tests := []struct {
+		line     string
+		expected string
+		err      error
+	}{
+		{"SET a foo", "", nil},
+		{"SET b baz", "", nil},
+		{"BEGIN", "", nil},
+		{"GET a", "foo", nil},
+		{"SET a bar", "", nil},
+		{"COUNT bar", "1", nil},
+		{"BEGIN", "", nil},
+		{"COUNT bar", "1", nil},
+		{"DELETE a", "", nil},
+		{"GET a", "NULL", nil},
+		{"COUNT bar", "0", nil},
+		{"ROLLBACK", "", nil},
+		{"GET a", "bar", nil},
+		{"COUNT bar", "1", nil},
+		{"COMMIT", "", nil},
+		{"GET a", "bar", nil},
+		{"GET b", "baz", nil},
+		{"END", "END", nil},
+	}
+	for _, test := range tests {
+		output, err := Eval(test.line, &m1, &m2, &trans)
+
+		assert.Equal(t, test.expected, output)
+		assert.Equal(t, test.err, err)
+	}
+}
