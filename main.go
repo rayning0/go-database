@@ -25,11 +25,21 @@ COMMIT: Commits ​all​ open transactions`
 
 // REPL: Read from input source till we see \n
 func main() {
-	m1 := make(map[string]string) // Main database map, name to value. Ex: {"a": "foo", "b": "foo"}
+	m1 := make(db.M1)
+	m2 := make(db.M2)
+	var trans db.Stack // stack of transactions
 
-	// Reverse of m1, mapping value to names. For SET and DELETE.
-	// Ex: {"foo": [a, b]}
-	m2 := make(map[string][]string)
+	// m1["a"] = "foo"
+	// m1["b"] = "foo"
+	// m2["foo"] = []string{"a", "b"}
+	// trans.Push(m1, m2)
+	// element, ok := trans.Pop()
+	// if ok {
+	// 	fmt.Printf("%+v %+v\n", element.MainMap, element.ReverseMap)
+	// }
+	// fmt.Println(len(trans))
+
+	// fmt.Printf("%+v\n", trans[0].Mm1)
 
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -42,8 +52,9 @@ func main() {
 		}
 
 		line := strings.TrimSpace(scanner.Text())
-		output, err := db.Eval(line, m1, m2)
-
+		fmt.Println("trans outside PRE: ", trans)
+		output, err := db.Eval(line, m1, m2, trans)
+		fmt.Println("trans outside: ", trans)
 		if output == "END" {
 			os.Exit(0)
 		}

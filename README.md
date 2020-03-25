@@ -1,4 +1,4 @@
-# Golang In-memory Database
+# Golang In-Memory Database
 
 To run, type `go run main.go`
 
@@ -33,4 +33,4 @@ Type each command in command line. Hit ENTER after each. Commands are case-insen
 - Rolls back most recent transaction. If no transaction to rollback, prints T​RANSACTION NOT FOUND.
 
 `COMMIT`
-- Commits ​all​ open transactions
+- Commits ​all​ open transactions. May not ROLLBACK after COMMIT.
