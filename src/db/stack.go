@@ -20,10 +20,11 @@ func (s *Stack) Pop() (M, bool) {
 	if s.IsEmpty() {
 		return M{}, false
 	} else {
-		index := len(*s) - 1
-		element := (*s)[index]
-		*s = (*s)[:index]
+		lastIndex := len(*s) - 1
+		lastStruct := (*s)[lastIndex]
 
-		return element, true
+		*s = (*s)[:lastIndex]
+
+		return lastStruct, true
 	}
 }

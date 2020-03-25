@@ -71,3 +71,68 @@ NULL
 
 _______________________________________
 EXAMPLE #3:
+
+»go run main.go
+
+>> begin
+
+>> set a foo
+
+>> get a
+foo
+>> begin
+
+>> set a bar
+
+>> get a
+bar
+>> set a baz
+
+>> rollback
+
+>> get a
+foo
+>> rollback
+
+>> get a
+NULL
+>> end
+_______________________________________
+EXAMPLE #4:
+
+» go run main.go
+>> set a foo
+
+>> set b baz
+
+>> begin
+
+>> get a
+foo
+>> set a bar
+
+>> count bar
+1
+>> begin
+
+>> count bar
+1
+>> delete a
+
+>> get a
+NULL
+>> count bar
+0
+>> rollback
+
+>> get a
+bar
+>> count bar
+1
+>> commit
+
+>> get a
+bar
+>> get b
+baz
+>> end

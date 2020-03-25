@@ -29,18 +29,6 @@ func main() {
 	m2 := make(db.M2)
 	var trans db.Stack // stack of transactions
 
-	// m1["a"] = "foo"
-	// m1["b"] = "foo"
-	// m2["foo"] = []string{"a", "b"}
-	// trans.Push(m1, m2)
-	// element, ok := trans.Pop()
-	// if ok {
-	// 	fmt.Printf("%+v %+v\n", element.MainMap, element.ReverseMap)
-	// }
-	// fmt.Println(len(trans))
-
-	// fmt.Printf("%+v\n", trans[0].Mm1)
-
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
@@ -52,9 +40,8 @@ func main() {
 		}
 
 		line := strings.TrimSpace(scanner.Text())
-		fmt.Println("trans outside PRE: ", trans)
-		output, err := db.Eval(line, m1, m2, &trans)
-		fmt.Println("trans outside: ", trans)
+		output, err := db.Eval(line, &m1, &m2, &trans)
+
 		if output == "END" {
 			os.Exit(0)
 		}
