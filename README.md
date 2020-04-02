@@ -1,10 +1,10 @@
 # Golang In-Memory Database
 
-To run, type `go run main.go`
+**[Read PDF of tech challenge](https://github.com/rayning0/go-database/blob/master/TechAssessment.pdf)**. To run, type `go run main.go`
 
 Type each command in command line. Hit ENTER after each. Commands are case-insensitive.
 
-See **[sample screen output](https://github.com/rayning0/go-database/blob/master/output.txt)**. See **[software tests](https://github.com/rayning0/go-database/blob/master/src/db/db_test.go)**. 
+See **[sample screen output](https://github.com/rayning0/go-database/blob/master/output.txt)**. See **[software tests](https://github.com/rayning0/go-database/blob/master/src/db/db_test.go)**.
 
 ## Commands:
 
